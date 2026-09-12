@@ -1,0 +1,19 @@
+{
+  "name": "structured-writing",
+  "version": "0.2.1",
+  "description": "中文职场写作助手：按金字塔原理起草、审阅、重构文档。写/审/改三模式，四类写作场景流水线，八项反模式诊断，数据自洽检查。",
+  "author": {
+    "name": "桂仕如"
+  },
+  "keywords": [
+    "结构化写作",
+    "金字塔原理",
+    "pyramid-principle",
+    "SCQA",
+    "MECE",
+    "职场汇报",
+    "中文写作",
+    "claude-skill"
+  ],
+  "license": "MIT"
+}
