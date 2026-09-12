@@ -6,6 +6,10 @@
 方法论源自 Barbara Minto 的《金字塔原理》。本插件把这套原理操作化成
 AI agent 可执行的流程、检查表与输出契约，不是原书复述。
 
+![审阅报告示例](docs/example-audit.png)
+
+> 上图：对一份周报跑「审」模式的实际输出。八段格式固定，每条问题都引用原文。
+
 ## 安装
 
 **Claude Code**
@@ -164,6 +168,8 @@ git clone https://github.com/guishiru/structured-writing.git ~/.claude/plugins/s
 structured-writing/
 ├── .claude-plugin/plugin.json
 ├── README.md
+├── LICENSE
+├── docs/example-audit.png    审阅报告示例截图
 └── skills/structured-writing/
     ├── SKILL.md              调度层：模式判断、场景路由、四条自检标准、全局硬规则
     └── references/
