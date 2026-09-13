@@ -53,6 +53,23 @@ window.STRUCTURED_WRITING_CONFIG = {
 
 然后提交 `site/config.js`，GitHub Pages 工作流会自动重新部署下载页。
 
+## 排除自己的行为
+
+在你自己的浏览器打开一次：
+
+```text
+https://guishiru.github.io/structured-writing/?owner=1
+```
+
+页面会记住该浏览器为所有者模式，后续在这个浏览器中的页面访问和下载都不会记录。
+要恢复统计，打开：
+
+```text
+https://guishiru.github.io/structured-writing/?owner=0
+```
+
+这只对当前浏览器有效；换设备或清除网站数据后需要重新设置。
+
 ## 查看汇总
 
 ```bash

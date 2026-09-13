@@ -10,6 +10,35 @@
   var releaseNote = document.getElementById("release-note");
   var statsNote = document.getElementById("stats-note");
   var query = new URLSearchParams(window.location.search);
+  var ownerModeKey = "structured-writing-owner-mode";
+  var ownerModeParam = config.ownerModeQueryParam || "owner";
+
+  function isOwnerMode() {
+    try {
+      return window.localStorage.getItem(ownerModeKey) === "1";
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function applyOwnerModeFromUrl() {
+    var requestedMode = query.get(ownerModeParam);
+    if (requestedMode !== "1" && requestedMode !== "0") return;
+
+    try {
+      if (requestedMode === "1") {
+        window.localStorage.setItem(ownerModeKey, "1");
+      } else {
+        window.localStorage.removeItem(ownerModeKey);
+      }
+    } catch (error) {
+      // The page still works when storage is unavailable.
+    }
+
+    var cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete(ownerModeParam);
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
 
   function getSessionId() {
     var key = "structured-writing-session";
@@ -27,7 +56,7 @@
   }
 
   function track(eventName, extra) {
-    if (!config.analyticsEndpoint) return;
+    if (!config.analyticsEndpoint || isOwnerMode()) return;
 
     var payload = Object.assign({
       event: eventName,
@@ -44,7 +73,7 @@
     try {
       var sent = navigator.sendBeacon(
         config.analyticsEndpoint,
-        new Blob([body], { type: "application/json" })
+        new Blob([body], { type: "text/plain;charset=UTF-8" })
       );
       if (sent) return;
     } catch (error) {
@@ -62,7 +91,7 @@
 
   function setDownloadUrl(url) {
     if (!downloadButton) return;
-    downloadButton.href = config.downloadEndpoint || url;
+    downloadButton.href = isOwnerMode() ? url : (config.downloadEndpoint || url);
   }
 
   function loadRelease() {
@@ -91,8 +120,11 @@
       });
   }
 
+  applyOwnerModeFromUrl();
   track("page_view");
-  if (!config.analyticsEndpoint) {
+  if (isOwnerMode()) {
+    statsNote.textContent = "所有者模式 · 本浏览器的访问和下载不会记录";
+  } else if (!config.analyticsEndpoint) {
     statsNote.textContent = "开源项目 · 页面统计未启用";
   } else {
     statsNote.textContent = "开源项目 · 仅记录匿名页面和下载事件";
@@ -100,7 +132,9 @@
 
   if (downloadButton) {
     downloadButton.addEventListener("click", function () {
-      track("download_click", { version: releaseNote.textContent });
+      if (!config.downloadEndpoint) {
+        track("download_click", { version: releaseNote.textContent });
+      }
     });
   }
 

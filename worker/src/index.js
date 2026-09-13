@@ -51,7 +51,9 @@ async function recordEvent(request, env, event) {
     utm_campaign: limit(event.utm_campaign, 100)
   };
 
-  if (!ALLOWED_EVENTS.has(data.event_name) || !data.resource_id) {
+  if (event.owner_mode === true ||
+      !ALLOWED_EVENTS.has(data.event_name) ||
+      !data.resource_id) {
     return false;
   }
 
