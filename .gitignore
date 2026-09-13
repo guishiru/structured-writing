@@ -2,3 +2,5 @@
 .DS_Store
 worker/wrangler.toml
 worker/.dev.vars
+.npm-cache/
+.wrangler/
