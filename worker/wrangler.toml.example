@@ -1,0 +1,12 @@
+name = "structured-writing-analytics"
+main = "src/index.js"
+compatibility_date = "2026-09-13"
+
+[vars]
+ALLOWED_ORIGIN = "https://YOUR_GITHUB_USERNAME.github.io"
+RELEASE_URL = "https://github.com/guishiru/structured-writing/releases/latest/download/structured-writing.plugin"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "structured-writing-analytics"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"

@@ -22,9 +22,41 @@ git clone https://github.com/guishiru/structured-writing.git ~/.claude/plugins/s
 
 **Cowork**
 
-下载 Releases 里的 `.plugin` 文件，拖进对话即可安装。
+下载 [Releases](https://github.com/guishiru/structured-writing/releases) 里的
+`structured-writing.plugin` 文件，拖进对话即可安装。
 
 装好后直接说话触发，不需要记命令。
+
+**下载页**
+
+项目提供一个可部署到 GitHub Pages 的下载页：
+
+```text
+https://guishiru.github.io/structured-writing/
+```
+
+启用 Pages 工作流后，下载页会自动读取最新 Release，并显示插件资产的 GitHub 下载次数。
+如果需要记录页面访问和下载按钮点击，请先按
+[`worker/README.md`](worker/README.md) 部署统计 Worker，再把 Worker 地址填入
+`site/config.js`。
+
+## 发布插件
+
+把 `.claude-plugin/plugin.json` 的版本号更新为新版本，再创建并推送同名的
+`v*` 标签后，GitHub Actions 会自动打包并上传
+`structured-writing.plugin` 到对应的 Release：
+
+```bash
+# 先把 .claude-plugin/plugin.json 的 version 改为 0.2.2
+git tag v0.2.2
+git push origin v0.2.2
+```
+
+本地也可以先检查安装包：
+
+```powershell
+./scripts/package-plugin.ps1
+```
 
 ---
 

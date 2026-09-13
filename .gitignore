@@ -1,2 +1,4 @@
 *.plugin
 .DS_Store
+worker/wrangler.toml
+worker/.dev.vars
